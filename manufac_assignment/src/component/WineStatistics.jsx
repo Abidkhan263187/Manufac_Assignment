@@ -9,17 +9,19 @@ function WineStatistics() {
   const calculateStatistics = () => {
     // Get unique classes from the data
     const classes = [...new Set(data.map(item => item.Alcohol))];
-
+    // console.log(classes)
     // Object to store statistics
     const statistics = {};
 
     // Loop through each class
     for (const className of classes) {
       const classData = data.filter(item => item.Alcohol === className);
+      // console.log(classData)
 
       // Calculate statistics for Flavanoids
       const flavanoids = classData.map(item => item.Flavanoids);
-      const mean = (flavanoids.reduce((acc, value) => acc + value, 0) / flavanoids.length).toFixed(3);
+      const mean = (flavanoids.reduce((acc, value) => parseInt(acc) + parseInt(value), 0) / flavanoids.length).toFixed(3);
+      // console.log(mean)
       const sortedFlavanoids = [...flavanoids].sort((a, b) => a - b);
       const median = ((sortedFlavanoids[Math.floor(flavanoids.length / 2)] + sortedFlavanoids[Math.ceil(flavanoids.length / 2)]) / 2).toFixed(3);
 
@@ -37,6 +39,8 @@ function WineStatistics() {
       // Calculate statistics for Gamma
       const gammaValues = classData.map(item => (item.Ash * item.Hue) / item.Magnesium);
       const gammaMean = (gammaValues.reduce((acc, value) => acc + value, 0) / gammaValues.length).toFixed(3);
+
+      // console.log(gammaMean)
       const sortedGammaValues = [...gammaValues].sort((a, b) => a - b);
       const gammaMedian = ((sortedGammaValues[Math.floor(gammaValues.length / 2)] + sortedGammaValues[Math.ceil(gammaValues.length / 2)]) / 2).toFixed(3);
 
